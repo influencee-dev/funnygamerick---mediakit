@@ -1,0 +1,246 @@
+@import 'tailwindcss';
+
+/* ───────────── Design tokens ───────────── */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Oxanium Variable', 'Rajdhani', ui-sans-serif, sans-serif;
+
+  --color-night: #030a18; /* background principale */
+  --color-deep: #07152b; /* background secondario */
+  --color-surface: #0c203a; /* card e superfici */
+  --color-gaming: #1165a3; /* blu gaming */
+  --color-cyan: #63dff7; /* cyan primario */
+  --color-cyan-bright: #35d9ff; /* cyan brillante */
+  --color-ink: #f5faff; /* testo principale */
+  --color-muted: #b9c8d8; /* testo secondario (schiarito per leggibilità) */
+  --color-line: #234663; /* bordi */
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-spin-slow: spin 28s linear infinite;
+  --animate-spin-slower: spin 60s linear infinite reverse;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-drift: drift 22s ease-in-out infinite alternate;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+  @keyframes drift {
+    from {
+      transform: translate3d(-2%, 0, 0) scale(1.02);
+    }
+    to {
+      transform: translate3d(2%, -1.5%, 0) scale(1.05);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgb(53 217 255 / 0.55);
+    }
+    50% {
+      opacity: 0.7;
+      box-shadow: 0 0 0 6px rgb(53 217 255 / 0);
+    }
+  }
+}
+
+/* ───────────── Base ───────────── */
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-night);
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-night font-sans text-ink antialiased;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: rgb(99 223 247 / 0.3);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cyan-bright);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ───────────── Componenti ───────────── */
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .section {
+    @apply relative py-20 sm:py-24 lg:py-32;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  /* Etichette piccole: Inter (più leggibile di Oxanium a corpi ridotti), spaziatura contenuta. */
+  .eyebrow {
+    @apply font-sans text-[13px] font-semibold tracking-[0.12em] text-cyan uppercase;
+  }
+
+  /* Parola chiave dei titoli: cyan pieno, senza alone (l'alone sfuocava i bordi delle lettere). */
+  .glow-text {
+    color: var(--color-cyan);
+  }
+
+  /* Card opache: lo sfondo (griglia, onde) non passa più sotto il testo. Nessuna ombra: su fondo scuro non aggiunge nulla. */
+  .card {
+    @apply relative rounded-2xl border border-line bg-surface;
+    transition:
+      border-color 0.3s var(--ease-out-expo),
+      transform 0.4s var(--ease-out-expo);
+  }
+  .card-hover:hover,
+  .card-hover:focus-within {
+    @apply border-cyan/50;
+    transform: translateY(-2px);
+  }
+
+  /* Luce che segue il puntatore (variabili impostate da JS, vedi useSpotlight). */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, -20%),
+      rgb(53 217 255 / 0.07),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  .btn {
+    @apply relative inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 font-sans text-[15px] font-semibold;
+    transition:
+      transform 0.3s var(--ease-out-expo),
+      background-color 0.3s,
+      border-color 0.3s,
+      color 0.3s;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    @apply bg-cyan text-night;
+  }
+  .btn-primary:hover {
+    @apply bg-ink;
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    @apply border border-line bg-deep text-ink;
+  }
+  .btn-ghost:hover {
+    @apply border-cyan/60 text-cyan;
+    transform: translateY(-2px);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-deep px-3 py-1 text-[13px] font-medium text-ink/85;
+  }
+
+  .section-index {
+    @apply font-sans text-[13px] font-semibold tracking-[0.08em] text-muted tabular-nums;
+  }
+}
+
+/* ───────────── Sfondi ───────────── */
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(35 70 99 / 0.28) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(35 70 99 / 0.28) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgb(99 223 247 / 0.16) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .scanlines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.025) 0 1px,
+      transparent 1px 4px
+    );
+  }
+  .text-gradient {
+    background: linear-gradient(100deg, var(--color-ink) 10%, var(--color-cyan) 60%, var(--color-cyan-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hairline {
+    background: linear-gradient(90deg, transparent, rgb(99 223 247 / 0.5), transparent);
+    height: 1px;
+  }
+}
+
+/* ───────────── Movimento ridotto ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * Sfondo e colore del testo fuori dai layer di Tailwind: le regole non stratificate di un
+ * contenitore esterno (es. un tema chiaro di chi incorpora la pagina) vincerebbero su @layer base
+ * e il testo chiaro finirebbe su fondo bianco. La pagina è volutamente solo scura.
+ */
+:root,
+html {
+  color-scheme: dark !important;
+  background-color: #030a18 !important;
+}
+body {
+  background-color: #030a18 !important;
+  color: #f5faff;
+}
