@@ -50,7 +50,8 @@ Verificati il 19/10/2026 sulla pagina pubblica [youtube.com/@FunnyGameRick](http
 - Link social ufficiali (YouTube, TikTok, Instagram, Twitch, Facebook, Telegram, Linktree), presi dai link del canale e confermati.
 - Email di contatto: riccardobuttitta91@gmail.com (pulsante "Proponi una collaborazione" + pulsante per copiarla).
 - Storia: inizio su TikTok nel 2022, da 1 a 4 short al giorno, walkthrough al 100% con missioni secondarie, video e live (dalla descrizione del canale).
-- Programmi di affiliazione (Amazon, Instant Gaming, AliExpress, Shein), dichiarati dal creator nella descrizione del canale.
+- Programmi di affiliazione: riquadro nascosto (`affiliatePrograms: null`), si può riattivare da `creator.ts`.
+- Footer: icone social e credito "Media kit realizzato da Influencee" (`credit` in `creator.ts`).
 - Partnership (Ubisoft Creator Program, Deep Silver Collective, Keymailer): dal brief. Sono presentate come programmi creator / accesso ai giochi, **non** come sponsorizzazioni.
 
 Immagini: avatar e banner ufficiali scaricati dal canale YouTube e convertiti in WebP (`public/images/`). `public/og-image.jpg` è l'anteprima per i social, composta con avatar e titolo.

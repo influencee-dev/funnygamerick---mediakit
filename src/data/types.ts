@@ -121,6 +121,7 @@ export interface CreatorData {
   collaborationNote: string;
   eventsNote: string;
   featuredContent: FeaturedItem[];
+  credit: { label: string; url: string } | null;
   contact: {
     email: string | null;
     fallbackUrl: string;

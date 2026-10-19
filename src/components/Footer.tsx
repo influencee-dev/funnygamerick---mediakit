@@ -1,7 +1,7 @@
 import type { CreatorData } from '../data/types';
 import { PlatformIcon } from './ui/PlatformIcon';
 
-/** Footer: riga di icone social grandi e cliccabili, poi firma e copyright. */
+/** Footer: riga di icone social grandi e cliccabili, poi il credito a chi ha realizzato il media kit. */
 export function Footer({ creator }: { creator: CreatorData }) {
   const year = new Date().getFullYear();
   return (
@@ -28,27 +28,22 @@ export function Footer({ creator }: { creator: CreatorData }) {
         </ul>
       </div>
 
-      <div className="border-t border-line/70">
-        <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-sm text-muted sm:flex-row">
-          <span className="font-display text-lg font-bold tracking-wide text-ink">
-            Funny<span className="text-cyan">Game</span>Rick
-          </span>
-          <span className="text-center">
-            © {year} {creator.realName} · {creator.name}. Tutti i diritti riservati.
-          </span>
-          {creator.contact.extraLinks.length > 0 && (
-            <ul className="flex gap-4">
-              {creator.contact.extraLinks.map((l) => (
-                <li key={l.url}>
-                  <a href={l.url} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-cyan">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
+      {creator.credit && (
+        <div className="border-t border-line/70">
+          <p className="container-x py-6 text-center text-sm text-muted">
+            Media kit realizzato da{' '}
+            <a
+              href={creator.credit.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-ink underline decoration-line underline-offset-4 transition-colors hover:text-cyan hover:decoration-cyan"
+            >
+              {creator.credit.label}
+            </a>{' '}
+            · {year}
+          </p>
         </div>
-      </div>
+      )}
     </footer>
   );
 }

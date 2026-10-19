@@ -279,10 +279,8 @@ export const creator: CreatorData = {
       logo: null,
     },
   ],
-  affiliatePrograms: {
-    note: 'Programmi di affiliazione attivi, dichiarati pubblicamente sul canale:',
-    names: ['Amazon', 'Instant Gaming', 'AliExpress', 'Shein'],
-  },
+  // Riquadro "programmi di affiliazione" nascosto su richiesta. Per mostrarlo: { note: '...', names: ['Amazon', ...] }
+  affiliatePrograms: null,
 
   audience,
   communityNote:
@@ -305,6 +303,9 @@ export const creator: CreatorData = {
    * }
    */
   featuredContent: [],
+
+  /** Credito in fondo alla pagina. */
+  credit: { label: 'Influencee', url: 'https://influencee.it' },
 
   contact: {
     /** Email professionale. null = nessun pulsante email (la CTA usa `fallbackUrl`). */
