@@ -36,7 +36,7 @@ Cosa succede quando un dato manca:
 | Visualizzazioni medie, reach, engagement | La card non viene mostrata |
 | Dati audience (età, genere, paesi…) | Al posto dei grafici c'è un testo sulla community |
 | Video in evidenza (`featuredContent`) | La sezione "Press play" e la voce di menu "Video" spariscono |
-| Email (`contact.email`) | La CTA porta al profilo Instagram (`fallbackUrl`); niente pulsante "copia email" |
+| Email (`contact.email`) | Se tolta, la CTA porta al profilo Instagram (`fallbackUrl`) e sparisce il pulsante "copia email" |
 | Logo partner | Card con monogramma grafico |
 | Foto reale (`images.aboutPhoto`) | "Dietro il controller" mostra una scheda personaggio in stile HUD |
 
@@ -47,7 +47,8 @@ In sviluppo (`npm run dev`) la console del browser elenca i dati ancora da compi
 Verificati il 19/10/2026 sulla pagina pubblica [youtube.com/@FunnyGameRick](https://www.youtube.com/@FunnyGameRick):
 
 - Iscritti YouTube: 75,2K · Video pubblicati: 6,6K (arrotondati da YouTube).
-- Link social ufficiali (YouTube, TikTok, Instagram, Twitch, Facebook, Telegram, Linktree), presi dai link del canale.
+- Link social ufficiali (YouTube, TikTok, Instagram, Twitch, Facebook, Telegram, Linktree), presi dai link del canale e confermati.
+- Email di contatto: riccardobuttitta91@gmail.com (pulsante "Proponi una collaborazione" + pulsante per copiarla).
 - Storia: inizio su TikTok nel 2022, da 1 a 4 short al giorno, walkthrough al 100% con missioni secondarie, video e live (dalla descrizione del canale).
 - Programmi di affiliazione (Amazon, Instant Gaming, AliExpress, Shein), dichiarati dal creator nella descrizione del canale.
 - Partnership (Ubisoft Creator Program, Deep Silver Collective, Keymailer): dal brief. Sono presentate come programmi creator / accesso ai giochi, **non** come sponsorizzazioni.
@@ -55,9 +56,6 @@ Verificati il 19/10/2026 sulla pagina pubblica [youtube.com/@FunnyGameRick](http
 Immagini: avatar e banner ufficiali scaricati dal canale YouTube e convertiti in WebP (`public/images/`). `public/og-image.jpg` è l'anteprima per i social, composta con avatar e titolo.
 
 ## Da fornire prima della pubblicazione
-
-**Contatti**
-- [ ] Email professionale → `contact.email`
 
 **Metriche** (con screenshot o export dagli strumenti delle piattaforme)
 - [ ] Follower TikTok, Instagram, Twitch, Facebook (e iscritti Telegram, se si vuole mostrarli: impostare `showInStats: true`)

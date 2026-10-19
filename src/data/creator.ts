@@ -308,7 +308,7 @@ export const creator: CreatorData = {
 
   contact: {
     /** Email professionale. null = nessun pulsante email (la CTA usa `fallbackUrl`). */
-    email: null,
+    email: 'riccardobuttitta91@gmail.com',
     /** Canale da usare per la CTA quando l'email non è ancora disponibile. */
     fallbackUrl: 'https://www.instagram.com/funnygamerick',
     fallbackLabel: 'Scrivi su Instagram',

@@ -2,7 +2,6 @@ import { ArrowUpRight, Check, Copy, Mail } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { CreatorData } from '../data/types';
 import { contactHref } from '../lib/format';
-import { PlatformIcon } from './ui/PlatformIcon';
 import { Reveal } from './ui/Reveal';
 import { WaveField } from './ui/WaveField';
 
@@ -47,24 +46,6 @@ export function Contact({ creator }: { creator: CreatorData }) {
           {!email && creator.contact.fallbackNote && <p className="mt-4 text-sm text-muted">{creator.contact.fallbackNote}</p>}
         </Reveal>
 
-        <Reveal delay={0.25}>
-          <ul className="mx-auto mt-16 flex max-w-2xl flex-wrap items-center justify-center gap-3" aria-label="Profili social">
-            {creator.platforms.map((p) => (
-              <li key={p.id}>
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex h-12 items-center gap-2.5 rounded-full border border-line bg-night px-4 text-sm text-muted transition hover:border-cyan/60 hover:text-ink"
-                >
-                  <PlatformIcon id={p.id} className="h-4 w-4 transition group-hover:text-cyan" />
-                  {p.label}
-                  <span className="sr-only">(si apre in una nuova scheda)</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
       </div>
     </section>
   );
