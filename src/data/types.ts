@@ -1,4 +1,4 @@
-export type PlatformId = 'youtube' | 'tiktok' | 'instagram' | 'twitch' | 'facebook' | 'telegram';
+export type PlatformId = 'youtube' | 'tiktok' | 'instagram' | 'twitch' | 'facebook' | 'telegram' | 'discord';
 
 export interface ImageAsset {
   src: string;

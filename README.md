@@ -54,9 +54,11 @@ Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (s
 | TikTok | Visualizzazioni post 90 giorni | 456,4K |
 | Instagram | Follower | 32.372 |
 | Instagram | Visualizzazioni · Interazioni 90 giorni | 1.420.015 · 91.621 (93% views da non follower) |
-| Facebook | Follower · Post | 8.878 · 10.722 |
+| Facebook | Follower | 8.878 |
+| Facebook | Visualizzazioni · Interazioni 90 giorni | 354.923 · 16.166 (188.355 persone raggiunte) |
 
-- Audience (età, genere, paesi; città per Instagram) di YouTube, TikTok e Instagram.
+- Audience (età, genere, paesi; città per Instagram e Facebook) di YouTube, TikTok, Instagram e Facebook.
+- Discord ("Server di FunnyGameRick", 14 membri a ottobre 2026): solo icona e link d'invito, senza numeri finché la community è piccola.
 - Partnership: Ubisoft Creator Program, Deep Silver Creator Collective, Keymailer, con il marchio di ciascuno in bianco (`public/images/logos/`).
 - Contenuti sponsorizzati: AC Black Flag Resynced, Forza Horizon 6, Darwin's Paradox!, giveaway Kingdom Come: Deliverance II, CalcioEz.
 - Contenuti più visti: TikTok "Doppi sensi" (1,2 Mln views), Reel più visti (179K, 155K, 65K, 57K like) e Short più visto, serie Tomb Raider.
@@ -67,7 +69,7 @@ Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (s
 ## Da aggiornare periodicamente
 
 - [ ] Numeri e audience (ripetere gli screenshot ogni 1–3 mesi e aggiornare `creator.ts` + `metricsUpdatedAt`)
-- [ ] Follower Twitch e iscritti Telegram (oggi solo link)
+- [ ] Follower Twitch, iscritti Telegram e membri Discord (oggi solo link)
 
 ## Pubblicazione
 

@@ -117,14 +117,14 @@ const collaborationFormats: CollaborationFormat[] = [
 
 /* Numeri principali, riusati nei totali qui sotto. */
 const FOLLOWERS = { youtube: 75252, tiktok: 48031, instagram: 32372, facebook: 8878 };
-const VIEWS_90D = { youtube: 1330494, instagram: 1420015, tiktok: 456400 };
+const VIEWS_90D = { youtube: 1330494, instagram: 1420015, tiktok: 456400, facebook: 354923 };
 
 /**
  * Dati demografici dagli strumenti di analisi ufficiali (screenshot nella cartella Drive).
  * Percentuali da 0 a 100. Una piattaforma senza dati si toglie dall'array.
  */
 const audience: AudienceData = {
-  source: 'YouTube Studio, TikTok Studio e Instagram Insights',
+  source: 'YouTube Studio, TikTok Studio, Instagram Insights e statistiche Facebook',
   insights: [
     { value: '96,1%', label: 'del pubblico YouTube è in Italia' },
     { value: '93%', label: 'delle visualizzazioni Instagram arriva da chi non lo segue ancora' },
@@ -204,6 +204,32 @@ const audience: AudienceData = {
         { label: 'Napoli', value: 1.5 },
         { label: 'Milano', value: 1.4 },
         { label: 'Torino', value: 1.2 },
+      ],
+    },
+    {
+      id: 'facebook',
+      label: 'Facebook',
+      basis: 'Follower, ultimi 90 giorni (ottobre 2026)',
+      // Facebook mostra solo le fasce principali e raggruppa le altre in "Altro".
+      ageRanges: [
+        { label: '45-54', value: 22.3 },
+        { label: '55-64', value: 21.9 },
+        { label: '65+', value: 21.6 },
+        { label: 'Altre fasce', value: 34.2 },
+      ],
+      gender: [
+        { label: 'Uomini', value: 52 },
+        { label: 'Donne', value: 48 },
+      ],
+      topCountries: [
+        { label: 'Italia', value: 97.3 },
+        { label: 'Svizzera', value: 0.6 },
+        { label: 'Romania', value: 0.5 },
+      ],
+      topCities: [
+        { label: 'Roma', value: 24.4 },
+        { label: 'Palermo', value: 18.3 },
+        { label: 'Napoli', value: 11.0 },
       ],
     },
   ],
@@ -391,7 +417,7 @@ export const creator: CreatorData = {
   /** Fatti verificabili mostrati in hero e nella sezione "chi è". */
   highlights: [
     { value: '164K+', label: 'Follower su YouTube, TikTok, Instagram e Facebook' },
-    { value: '3,2 Mln', label: 'Visualizzazioni negli ultimi 90 giorni' },
+    { value: '3,5 Mln', label: 'Visualizzazioni negli ultimi 90 giorni' },
     { value: '1–4', label: 'Short pubblicati ogni giorno' },
   ],
 
@@ -423,7 +449,7 @@ export const creator: CreatorData = {
    */
   metricsUpdatedAt: '2026-10-18',
   metricsSource:
-    'YouTube Studio, TikTok Studio, Instagram Insights e profilo Facebook. Visualizzazioni e interazioni: ultimi 90 giorni (21 lug – 18 ott 2026)',
+    'YouTube Studio, TikTok Studio, Instagram Insights e statistiche Facebook. Visualizzazioni e interazioni: ultimi 90 giorni (luglio – ottobre 2026)',
   platforms: [
     {
       id: 'youtube',
@@ -465,7 +491,8 @@ export const creator: CreatorData = {
       url: 'https://www.facebook.com/riccardo.buttitta.14',
       metrics: [
         { label: 'Follower', value: FOLLOWERS.facebook, primary: true },
-        { label: 'Post pubblicati', value: 10722 },
+        { label: 'Visualizzazioni in 90 giorni', value: VIEWS_90D.facebook },
+        { label: 'Interazioni in 90 giorni', value: 16166 },
       ],
     },
     {
@@ -482,6 +509,14 @@ export const creator: CreatorData = {
       url: 'https://t.me/FunnyGameRick',
       metrics: [{ label: 'Iscritti', value: null, primary: true }],
     },
+    {
+      // Community ancora piccola (14 membri a ottobre 2026): solo icona e link, senza numeri.
+      id: 'discord',
+      label: 'Discord',
+      handle: 'Server di FunnyGameRick',
+      url: 'https://discord.gg/EnkPAQvy4v',
+      metrics: [{ label: 'Membri', value: null, primary: true }],
+    },
   ],
 
   /** Totali calcolati dai numeri qui sopra. */
@@ -491,8 +526,8 @@ export const creator: CreatorData = {
       value: FOLLOWERS.youtube + FOLLOWERS.tiktok + FOLLOWERS.instagram + FOLLOWERS.facebook,
     },
     {
-      label: 'Visualizzazioni in 90 giorni su YouTube, Instagram e TikTok',
-      value: VIEWS_90D.youtube + VIEWS_90D.instagram + VIEWS_90D.tiktok,
+      label: 'Visualizzazioni in 90 giorni su YouTube, Instagram, TikTok e Facebook',
+      value: VIEWS_90D.youtube + VIEWS_90D.instagram + VIEWS_90D.tiktok + VIEWS_90D.facebook,
       approximate: true,
     },
   ],

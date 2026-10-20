@@ -1,4 +1,4 @@
-import { siFacebook, siInstagram, siTelegram, siTiktok, siTwitch, siYoutube } from 'simple-icons';
+import { siDiscord, siFacebook, siInstagram, siTelegram, siTiktok, siTwitch, siYoutube } from 'simple-icons';
 import type { PlatformId } from '../../data/types';
 
 const ICONS: Record<PlatformId, { path: string; hex: string; title: string }> = {
@@ -8,6 +8,7 @@ const ICONS: Record<PlatformId, { path: string; hex: string; title: string }> = 
   facebook: siFacebook,
   twitch: siTwitch,
   telegram: siTelegram,
+  discord: siDiscord,
 };
 
 /** Colore d'accento per piattaforma, calibrato per restare leggibile sul blu notte. */
@@ -18,6 +19,7 @@ export const PLATFORM_ACCENT: Record<PlatformId, string> = {
   facebook: '#4D8DFF',
   twitch: '#A77BFF',
   telegram: '#4FC3F7',
+  discord: '#8C9EFF',
 };
 
 type Props = { id: PlatformId; className?: string; colored?: boolean; title?: string };

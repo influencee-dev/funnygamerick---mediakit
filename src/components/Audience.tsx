@@ -103,7 +103,8 @@ function AudienceData({ creator }: { creator: CreatorData }) {
       {current && (
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-wrap items-end justify-between gap-4">
-            <div role="tablist" aria-label="Piattaforma" className="grid w-full grid-cols-3 gap-1.5 sm:flex sm:gap-2 sm:w-auto sm:flex-wrap">
+            <div role="tablist" aria-label="Piattaforma" className={`grid w-full gap-1.5 sm:flex sm:w-auto sm:flex-wrap sm:gap-2 ${platforms.length >= 4 ? 'grid-cols-4' : 'grid-cols-3'}`}
+            >
               {platforms.map((p, i) => {
                 const selected = p.id === current.id;
                 return (
@@ -117,11 +118,14 @@ function AudienceData({ creator }: { creator: CreatorData }) {
                     tabIndex={selected ? 0 : -1}
                     onClick={() => setActive(p.id)}
                     onKeyDown={(e) => onKey(e, i)}
-                    className={`flex min-h-11 min-w-0 items-center justify-center gap-1 rounded-full border px-1.5 text-[13px] font-semibold transition-colors sm:gap-2 sm:px-4 sm:text-sm ${
+                    className={`flex min-h-11 min-w-0 items-center justify-center gap-1 rounded-full border px-1 text-[12.5px] font-semibold max-[359px]:text-[11px] transition-colors sm:gap-2 sm:px-4 sm:text-sm ${
                       selected ? 'border-cyan bg-cyan text-night' : 'border-line bg-deep text-ink hover:border-cyan/60'
                     }`}
                   >
-                    <PlatformIcon id={p.id} className="h-3.5 w-3.5 shrink-0 max-[359px]:hidden sm:h-4 sm:w-4" />
+                    <PlatformIcon
+                      id={p.id}
+                      className={`h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 ${platforms.length >= 4 ? 'max-sm:hidden' : 'max-[359px]:hidden'}`}
+                    />
                     <span className="truncate">{p.label}</span>
                   </button>
                 );
@@ -190,12 +194,14 @@ const pct = (v: number) => `${v.toLocaleString('it-IT', { maximumFractionDigits:
 function BarsCard({ title, data, highlightMax = false }: { title: string; data: Datum[]; highlightMax?: boolean }) {
   if (!data.length) return null;
   const max = Math.max(...data.map((d) => d.value));
+  // Il gruppo "Altre fasce" non è una fascia vera: non viene mai evidenziato.
+  const topValue = Math.max(...data.filter((d) => !d.label.startsWith('Altr')).map((d) => d.value));
   return (
     <div className="card p-7">
       <h3 className="eyebrow">{title}</h3>
       <ul className="mt-6 space-y-3.5">
         {data.map((d) => {
-          const top = highlightMax && d.value === max;
+          const top = highlightMax && d.value === topValue && !d.label.startsWith('Altr');
           return (
             <li key={d.label}>
               <div className="flex items-baseline justify-between text-[15px]">
