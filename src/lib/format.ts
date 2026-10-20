@@ -1,6 +1,5 @@
 import type { CreatorData, FeaturedItem, Metric, Platform } from '../data/types';
 
-const compact = new Intl.NumberFormat('it-IT', { notation: 'compact', maximumFractionDigits: 1 });
 const full = new Intl.NumberFormat('it-IT');
 
 /**
@@ -11,11 +10,13 @@ export function formatNumber(value: number, approximate = false): string {
   const v = Math.round(value);
   if (Math.abs(v) < 1000 || (!approximate && Math.abs(v) < 10000)) return full.format(v);
   value = v;
+  // Troncamento (non arrotondamento), come fanno le piattaforme: 75.252 → "75,2K".
+  const trunc = (n: number) => new Intl.NumberFormat('it-IT', { maximumFractionDigits: 1 }).format(Math.floor(n * 10) / 10);
   // Intl it-IT usa "Mln"/"Mrd" e nessun suffisso per le migliaia: lo uniformiamo allo stile social.
   if (Math.abs(value) < 1_000_000) {
-    return `${new Intl.NumberFormat('it-IT', { maximumFractionDigits: 1 }).format(value / 1000)}K`;
+    return `${trunc(value / 1000)}K`;
   }
-  return compact.format(value).replace(/\s?Mln/, 'M');
+  return `${trunc(value / 1_000_000)} Mln`;
 }
 
 export function formatDate(iso: string): string {
@@ -37,12 +38,8 @@ export const platformsWithData = (c: CreatorData) =>
 export const platformsWithoutData = (c: CreatorData) =>
   c.platforms.filter((p) => p.showInStats !== false && !p.metrics.some(hasValue));
 
-export const hasAudienceData = (c: CreatorData) => {
-  const a = c.audience;
-  return (
-    a.ageRanges.length + a.gender.length + a.topCountries.length + a.platformSplit.length + a.engagement.length > 0
-  );
-};
+export const hasAudienceData = (c: CreatorData) =>
+  c.audience.platforms.some((p) => p.ageRanges.length + p.gender.length + p.topCountries.length > 0);
 
 const isHttpUrl = (u: string) => /^https?:\/\//i.test(u);
 export const validFeatured = (c: CreatorData) => c.featuredContent.filter((f) => isHttpUrl(f.url) && f.title.trim());
@@ -75,7 +72,7 @@ export function missingData(c: CreatorData): string[] {
     p.metrics.filter((m) => !hasValue(m)).forEach((m) => out.push(`${p.label}: ${m.label}`)),
   );
   c.aggregateMetrics.filter((m) => !hasValue(m)).forEach((m) => out.push(m.label));
-  if (!hasAudienceData(c)) out.push('audience (età, genere, paesi, piattaforme, engagement)');
+  if (!hasAudienceData(c)) out.push('audience (età, genere, paesi per piattaforma)');
   if (!c.featuredContent.length) out.push('featuredContent (video in evidenza)');
   if (!c.images.aboutPhoto) out.push('images.aboutPhoto (foto reale per "Dietro il controller")');
   c.partnerships.filter((p) => !p.logo).forEach((p) => out.push(`Logo: ${p.name}`));

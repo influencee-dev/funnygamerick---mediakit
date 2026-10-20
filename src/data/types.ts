@@ -55,14 +55,23 @@ export interface Datum {
   value: number;
 }
 
-export interface AudienceData {
-  source: string | null;
+/** Dati demografici di una piattaforma, letti dagli strumenti di analisi ufficiali. */
+export interface AudiencePlatform {
+  id: PlatformId;
+  label: string;
+  /** Periodo e base del dato, es. "Visualizzazioni, 21 lug – 18 ott 2026". */
+  basis: string;
   ageRanges: Datum[];
   gender: Datum[];
   topCountries: Datum[];
-  platformSplit: Datum[];
-  /** Metriche di engagement già formattate, es. { label: 'Engagement rate YouTube', value: '6,2%' } */
-  engagement: { label: string; value: string }[];
+  topCities?: Datum[];
+}
+
+export interface AudienceData {
+  source: string | null;
+  platforms: AudiencePlatform[];
+  /** Dati chiave in evidenza, es. { value: '96,1%', label: 'pubblico italiano su YouTube' }. */
+  insights: { value: string; label: string }[];
 }
 
 export interface CollaborationFormat {
@@ -84,7 +93,19 @@ export interface FeaturedItem {
   platform: 'youtube' | 'tiktok' | 'instagram' | 'twitch';
   url: string;
   thumbnail?: string;
+  /** vertical = short/reel/tiktok (9:16), horizontal = video o serie (16:9). */
+  format?: 'vertical' | 'horizontal';
   meta?: string;
+  /** Numeri pubblici del contenuto, già formattati, es. "1,2 Mln visualizzazioni". */
+  stats?: string;
+}
+
+/** Collaborazione sponsorizzata confermata dal creator, con i contenuti pubblicati. */
+export interface SponsoredCollab {
+  brand: string;
+  /** Tipo di contenuto, es. "Gameplay sponsorizzato". */
+  kind: string;
+  videos: FeaturedItem[];
 }
 
 export interface CreatorData {
@@ -114,6 +135,7 @@ export interface CreatorData {
   aggregateMetrics: Metric[];
   contentPillars: ContentPillar[];
   partnerships: Partnership[];
+  sponsoredContent: SponsoredCollab[];
   affiliatePrograms: { note: string; names: string[] } | null;
   audience: AudienceData;
   communityNote: string;

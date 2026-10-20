@@ -15,7 +15,12 @@ export function Stats({ creator }: { creator: CreatorData }) {
   const withData = platformsWithData(creator);
   const withoutData = platformsWithoutData(creator);
   const aggregates = creator.aggregateMetrics.filter(hasValue);
-  const listFullWidth = withData.length + aggregates.length !== 1;
+  // Celle occupate nella griglia a 3 colonne (la prima piattaforma ne occupa 2):
+  // la card "Presente anche su" riempie lo spazio rimasto nell'ultima riga.
+  const used = (withData.length ? withData.length + 1 : 0) + aggregates.length;
+  const rest = used % 3;
+  const presenceSpan = rest === 0 ? 'md:col-span-2 lg:col-span-3' : rest === 1 ? 'md:col-span-2 lg:col-span-2' : 'md:col-span-2 lg:col-span-1';
+  const listFullWidth = rest === 0;
   const anyApprox = withData.some((p) => p.metrics.some((m) => hasValue(m) && m.approximate));
 
   return (
@@ -45,10 +50,10 @@ export function Stats({ creator }: { creator: CreatorData }) {
           ))}
 
           {withoutData.length > 0 && (
-            <Reveal delay={0.16} className={listFullWidth ? 'md:col-span-2 lg:col-span-3' : ''}>
+            <Reveal delay={0.16} className={presenceSpan}>
               <div className="card h-full p-6 sm:p-7">
                 <p className="eyebrow">Presente anche su</p>
-                <ul className={`mt-5 grid gap-2.5 ${listFullWidth ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-2 lg:grid-cols-1'}`}>
+                <ul className={`mt-5 grid gap-2.5 ${listFullWidth ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-2'}`}>
                   {withoutData.map((p) => (
                     <li key={p.id}>
                       <a
@@ -120,7 +125,7 @@ function PlatformCard({ platform, featured }: { platform: Platform; featured: bo
           <div>
             <p className={`display text-ink ${featured ? 'text-[clamp(4rem,10vw,7.5rem)]' : 'text-6xl'}`}>
               {main.approximate && <span className="mr-1 align-top text-[0.4em] text-cyan" aria-hidden="true">≈</span>}
-              <CountUp value={main.value} format={main.approximate ? fmtApprox : fmtExact} />
+              <CountUp className="normal-case" value={main.value} format={main.approximate ? fmtApprox : fmtExact} />
             </p>
             <p className="mt-3 text-sm tracking-wide text-muted uppercase">{main.label}</p>
           </div>
@@ -132,7 +137,7 @@ function PlatformCard({ platform, featured }: { platform: Platform; featured: bo
                 <dt className="text-xs tracking-wide text-muted uppercase">{m.label}</dt>
                 <dd className="mt-1 font-display text-3xl font-bold text-ink">
                   {m.approximate && <span className="mr-1 text-lg text-cyan" aria-hidden="true">≈</span>}
-                  <CountUp value={m.value!} format={m.approximate ? fmtApprox : fmtExact} />
+                  <CountUp className="normal-case" value={m.value!} format={m.approximate ? fmtApprox : fmtExact} />
                   {m.unit}
                 </dd>
               </div>
@@ -154,7 +159,7 @@ function AggregateCard({ metric }: { metric: Metric & { value: number } }) {
     <div className="card card-hover flex h-full flex-col justify-end p-7 sm:p-9">
       <p className="display text-6xl text-ink">
         {metric.approximate && <span className="mr-1 align-top text-[0.4em] text-cyan" aria-hidden="true">≈</span>}
-        <CountUp value={metric.value} format={fmt} />
+        <CountUp className="normal-case" value={metric.value} format={fmt} />
         {metric.unit && <span className="text-cyan">{metric.unit}</span>}
       </p>
       <p className="mt-3 text-sm tracking-wide text-muted uppercase">{metric.label}</p>

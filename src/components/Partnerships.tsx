@@ -1,5 +1,6 @@
 import { BadgeCheck, Gamepad2, Handshake, Link2, type LucideIcon } from 'lucide-react';
 import type { CreatorData, PartnershipKind } from '../data/types';
+import { HorizontalCard } from './Featured';
 import { Reveal } from './ui/Reveal';
 import { SectionHeader } from './ui/SectionHeader';
 import { onSpotlightMove } from './ui/useSpotlight';
@@ -20,7 +21,7 @@ const initials = (name: string) =>
     .join('');
 
 export function Partnerships({ creator }: { creator: CreatorData }) {
-  const { partnerships, affiliatePrograms } = creator;
+  const { partnerships, affiliatePrograms, sponsoredContent } = creator;
   const kinds = [...new Set(partnerships.map((p) => p.kind))];
 
   return (
@@ -95,6 +96,49 @@ export function Partnerships({ creator }: { creator: CreatorData }) {
             );
           })}
         </ul>
+
+        {sponsoredContent.length > 0 && (
+          <div className="mt-20">
+            <Reveal>
+              <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+                <h3 className="font-display text-3xl font-bold tracking-wide text-ink uppercase sm:text-4xl">
+                  Contenuti <span className="text-cyan">sponsorizzati</span>
+                </h3>
+                <p className="max-w-md text-[15px] leading-relaxed text-muted">
+                  Collaborazioni commerciali già realizzate, con i contenuti pubblicati sul canale.
+                </p>
+              </div>
+            </Reveal>
+            <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {sponsoredContent.map((c, i) => {
+                const [main, ...more] = c.videos;
+                if (!main) return null;
+                return (
+                  <Reveal as="li" key={c.brand} delay={(i % 3) * 0.08} className="flex flex-col gap-3">
+                    <HorizontalCard item={{ ...main, title: c.brand }} kicker={c.kind} />
+                    {more.length > 0 && (
+                      <ul className="flex flex-wrap gap-2">
+                        {more.map((v) => (
+                          <li key={v.url}>
+                            <a
+                              href={v.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="chip transition-colors hover:border-cyan/60 hover:text-ink"
+                            >
+                              {v.title}
+                              <span className="sr-only">(si apre in una nuova scheda)</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </ul>
+          </div>
+        )}
 
         {affiliatePrograms && affiliatePrograms.names.length > 0 && (
           <Reveal delay={0.15}>

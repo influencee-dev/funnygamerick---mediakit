@@ -42,36 +42,34 @@ Cosa succede quando un dato manca:
 
 In sviluppo (`npm run dev`) la console del browser elenca i dati ancora da compilare.
 
-## Dati già presenti e fonti
+## Dati presenti e fonti
 
-Verificati il 19/10/2026 sulla pagina pubblica [youtube.com/@FunnyGameRick](https://www.youtube.com/@FunnyGameRick):
+Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (screenshot degli strumenti ufficiali), aggiornati al **18 ottobre 2026**:
 
-- Iscritti YouTube: 75,2K · Video pubblicati: 6,6K (arrotondati da YouTube).
-- Link social ufficiali (YouTube, TikTok, Instagram, Twitch, Facebook, Telegram, Linktree), presi dai link del canale e confermati.
-- Email di contatto: riccardobuttitta91@gmail.com (pulsante "Proponi una collaborazione" + pulsante per copiarla).
-- Storia: inizio su TikTok nel 2022, da 1 a 4 short al giorno, walkthrough al 100% con missioni secondarie, video e live (dalla descrizione del canale).
-- Programmi di affiliazione: riquadro nascosto (`affiliatePrograms: null`), si può riattivare da `creator.ts`.
-- Footer: icone social e credito "Media kit realizzato da Influencee" (`credit` in `creator.ts`).
-- Partnership (Ubisoft Creator Program, Deep Silver Collective, Keymailer): dal brief. Sono presentate come programmi creator / accesso ai giochi, **non** come sponsorizzazioni.
+| Piattaforma | Dato | Valore |
+| --- | --- | --- |
+| YouTube | Iscritti | 75.252 |
+| YouTube | Visualizzazioni 90 giorni (21 lug – 18 ott) | 1.330.494 (Short 97,8%) |
+| TikTok (@riccardo_buttitta) | Follower · Mi piace totali | 48.031 · 1 Mln |
+| TikTok | Visualizzazioni post 90 giorni | 456,4K |
+| Instagram | Follower | 32.372 |
+| Instagram | Visualizzazioni · Interazioni 90 giorni | 1.420.015 · 91.621 (93% views da non follower) |
+| Facebook | Follower · Post | 8.878 · 10.722 |
 
-Immagini: avatar e banner ufficiali scaricati dal canale YouTube e convertiti in WebP (`public/images/`). `public/og-image.jpg` è l'anteprima per i social, composta con avatar e titolo.
+- Audience (età, genere, paesi; città per Instagram) di YouTube, TikTok e Instagram.
+- Partnership: Ubisoft Creator Program, Deep Silver Creator Collective, Keymailer.
+- Contenuti sponsorizzati: AC Black Flag Resynced, Forza Horizon 6, Darwin's Paradox!, giveaway Kingdom Come: Deliverance II, CalcioEz.
+- Contenuti più visti: TikTok "Doppi sensi" (1,2 Mln views), Reel e Short più visti, serie Tomb Raider.
+  Titoli, like e visualizzazioni dei singoli video sono letti dalle pagine pubbliche; le miniature sono salvate in `public/images/video/`.
+- Foto reale (`public/images/riccardo-setup-*.webp`) e logo ad alta risoluzione (avatar).
+- Email di contatto: riccardobuttitta91@gmail.com.
 
-## Da fornire prima della pubblicazione
+## Da aggiornare periodicamente
 
-**Metriche** (con screenshot o export dagli strumenti delle piattaforme)
-- [ ] Follower TikTok, Instagram, Twitch, Facebook (e iscritti Telegram, se si vuole mostrarli: impostare `showInStats: true`)
-- [ ] Visualizzazioni medie per video, reach mensile, engagement rate → `aggregateMetrics`
-- [ ] Verifica e aggiornamento dei numeri YouTube (iscritti esatti da YouTube Studio)
-
-**Audience** (YouTube Studio / TikTok Analytics / Instagram Insights) → `audience`
-- [ ] Fasce d'età, genere, paesi/città principali, ripartizione per piattaforma, metriche di engagement
-- [ ] Fonte e periodo dei dati → `audience.source`
-
-**Contenuti e immagini**
-- [ ] 1–4 video rappresentativi (link reali) → `featuredContent`. Per YouTube la miniatura si ricava dal link.
-- [ ] Una foto reale di Riccardo (verticale, almeno 800×1000 px) → `public/images/` + `images.aboutPhoto`
-- [ ] Loghi partner, solo se ufficiali e utilizzabili (SVG o PNG trasparente) → `public/logos/` + campo `logo`
-- [ ] Conferma da Riccardo di testi, partnership e formati di collaborazione
+- [ ] Numeri e audience (ripetere gli screenshot ogni 1–3 mesi e aggiornare `creator.ts` + `metricsUpdatedAt`)
+- [ ] Follower Twitch e iscritti Telegram (oggi solo link)
+- [ ] Loghi partner ufficiali, se utilizzabili
+- [ ] Statistiche del 4° Reel (C8fGIC1CRMf), oggi senza miniatura
 
 ## Pubblicazione
 

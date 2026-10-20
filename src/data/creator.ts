@@ -10,10 +10,12 @@
  *   la formattazione italiana la fa la pagina.
  * - Ogni volta che aggiorni le metriche, aggiorna anche `metricsUpdatedAt`.
  *
- * Fonti dei dati già presenti (verificati il 19/10/2026):
- * - Iscritti e numero video YouTube, link social, storia del canale: pagina pubblica
- *   https://www.youtube.com/@FunnyGameRick (descrizione e link del canale).
- * - Partnership: indicazioni fornite dal creator (brief di progetto).
+ * Fonti dei dati (aggiornati il 20/10/2026):
+ * - Cartella Drive "Media kit" condivisa da Riccardo: screenshot di YouTube Studio, TikTok Studio,
+ *   Instagram Insights e profilo Facebook (periodo 90 giorni: 21 lug – 18 ott 2026), elenco aziende,
+ *   contenuti sponsorizzati, video più performanti, foto e logo.
+ * - Pagine pubbliche dei video (titoli, like e visualizzazioni dei singoli contenuti).
+ * - Storia del canale: descrizione pubblica di https://www.youtube.com/@FunnyGameRick.
  */
 
 import type {
@@ -21,6 +23,8 @@ import type {
   CollaborationFormat,
   ContentPillar,
   CreatorData,
+  FeaturedItem,
+  SponsoredCollab,
 } from './types';
 
 export type * from './types';
@@ -39,7 +43,7 @@ const contentPillars: ContentPillar[] = [
     id: 'short',
     title: 'Short form content',
     description:
-      'Da 1 a 4 short al giorno: clip rapide, ironiche e pensate per TikTok, YouTube Shorts e Instagram Reels.',
+      'Da 1 a 4 short al giorno: clip rapide e ironiche per TikTok, YouTube Shorts e Instagram Reels. Su YouTube gli Short generano il 97,8% delle visualizzazioni.',
     tags: ['TikTok', 'Shorts', 'Reels'],
     icon: 'zap',
     size: 'tall',
@@ -109,23 +113,241 @@ const collaborationFormats: CollaborationFormat[] = [
   },
 ];
 
+/* Numeri principali, riusati nei totali qui sotto. */
+const FOLLOWERS = { youtube: 75252, tiktok: 48031, instagram: 32372, facebook: 8878 };
+const VIEWS_90D = { youtube: 1330494, instagram: 1420015, tiktok: 456400 };
+
 /**
- * Dati demografici: oggi nessun dato è stato fornito, quindi tutti gli array sono vuoti
- * e la pagina mostra un testo editoriale al posto dei grafici.
- * Per attivare i grafici basta compilare gli array (percentuali da 0 a 100) con i dati
- * presi da YouTube Studio / TikTok Analytics / Instagram Insights.
- *
- * Esempio (NON sono dati reali):
- *   ageRanges: [{ label: '18-24', value: 38 }, { label: '25-34', value: 31 }]
+ * Dati demografici dagli strumenti di analisi ufficiali (screenshot nella cartella Drive).
+ * Percentuali da 0 a 100. Una piattaforma senza dati si toglie dall'array.
  */
 const audience: AudienceData = {
-  source: null, // es. 'YouTube Studio, ultimi 90 giorni'
-  ageRanges: [],
-  gender: [],
-  topCountries: [],
-  platformSplit: [],
-  engagement: [],
+  source: 'YouTube Studio, TikTok Studio e Instagram Insights',
+  insights: [
+    { value: '96,1%', label: 'del pubblico YouTube è in Italia' },
+    { value: '93%', label: 'delle visualizzazioni Instagram arriva da chi non lo segue ancora' },
+    { value: '25–34', label: 'la fascia d’età più ampia su YouTube e Instagram' },
+  ],
+  platforms: [
+    {
+      id: 'youtube',
+      label: 'YouTube',
+      basis: 'Visualizzazioni, 21 lug – 18 ott 2026',
+      ageRanges: [
+        { label: '13-17', value: 19.0 },
+        { label: '18-24', value: 11.0 },
+        { label: '25-34', value: 22.2 },
+        { label: '35-44', value: 19.5 },
+        { label: '45-54', value: 18.6 },
+        { label: '55-64', value: 5.0 },
+        { label: '65+', value: 4.8 },
+      ],
+      gender: [
+        { label: 'Uomini', value: 69.6 },
+        { label: 'Donne', value: 30.4 },
+      ],
+      topCountries: [
+        { label: 'Italia', value: 96.1 },
+        { label: 'Svizzera', value: 0.4 },
+        { label: 'Germania', value: 0.2 },
+      ],
+    },
+    {
+      id: 'tiktok',
+      label: 'TikTok',
+      basis: 'Spettatori, 20 lug – 17 ott 2026',
+      ageRanges: [
+        { label: '18-24', value: 33.8 },
+        { label: '25-34', value: 30.1 },
+        { label: '35-44', value: 19.0 },
+        { label: '45-54', value: 13.6 },
+        { label: '55+', value: 3.5 },
+      ],
+      gender: [
+        { label: 'Donne', value: 49 },
+        { label: 'Uomini', value: 45 },
+        { label: 'Altro', value: 6 },
+      ],
+      topCountries: [
+        { label: 'Italia', value: 89.4 },
+        { label: 'Francia', value: 7.2 },
+        { label: 'Romania', value: 0.4 },
+      ],
+    },
+    {
+      id: 'instagram',
+      label: 'Instagram',
+      basis: 'Pubblico del profilo, ottobre 2026',
+      ageRanges: [
+        { label: '13-17', value: 6.3 },
+        { label: '18-24', value: 17.8 },
+        { label: '25-34', value: 28.1 },
+        { label: '35-44', value: 23.7 },
+        { label: '45-54', value: 15.8 },
+        { label: '55-64', value: 6.2 },
+        { label: '65+', value: 2.1 },
+      ],
+      gender: [
+        { label: 'Uomini', value: 67.5 },
+        { label: 'Donne', value: 32.5 },
+      ],
+      topCountries: [
+        { label: 'Italia', value: 95.7 },
+        { label: 'Germania', value: 0.7 },
+        { label: 'Svizzera', value: 0.6 },
+      ],
+      topCities: [
+        { label: 'Roma', value: 4.9 },
+        { label: 'Palermo', value: 2.2 },
+        { label: 'Napoli', value: 1.5 },
+        { label: 'Milano', value: 1.4 },
+        { label: 'Torino', value: 1.2 },
+      ],
+    },
+  ],
 };
+
+/** Collaborazioni sponsorizzate (cartella Drive "Brand / Contenuti sponsorizzati"). */
+const sponsoredContent: SponsoredCollab[] = [
+  {
+    brand: 'Assassin’s Creed Black Flag Resynced',
+    kind: 'Serie gameplay sponsorizzata',
+    videos: [
+      {
+        title: 'Walkthrough Gameplay ITA – Parte 1: Edward, il pirata',
+        platform: 'youtube',
+        url: 'https://youtu.be/GreAw1m0uAQ',
+        thumbnail: 'images/video/acbf.webp',
+        format: 'horizontal',
+      },
+    ],
+  },
+  {
+    brand: 'Forza Horizon 6',
+    kind: 'Serie gameplay sponsorizzata',
+    videos: [
+      {
+        title: 'Si parte per il Giappone! Gameplay PC ITA – Parte 1',
+        platform: 'youtube',
+        url: 'https://youtu.be/IXXXLsUxIIQ',
+        thumbnail: 'images/video/fh6.webp',
+        format: 'horizontal',
+      },
+    ],
+  },
+  {
+    brand: 'Darwin’s Paradox!',
+    kind: 'Serie gameplay sponsorizzata',
+    videos: [
+      {
+        title: 'Walkthrough Gameplay PC ITA – Parte 1: inizia l’avventura di un polpo',
+        platform: 'youtube',
+        url: 'https://youtu.be/oQcjowL6-kM',
+        thumbnail: 'images/video/darwin.webp',
+        format: 'horizontal',
+      },
+    ],
+  },
+  {
+    brand: 'Kingdom Come: Deliverance II',
+    kind: 'Giveaway con Deep Silver',
+    videos: [
+      {
+        title: 'Giveaway in collaborazione con Deep Silver e Kingdom Come',
+        platform: 'youtube',
+        url: 'https://youtube.com/shorts/IlirurWD18k',
+        thumbnail: 'images/video/kcd2.webp',
+        format: 'vertical',
+      },
+    ],
+  },
+  {
+    brand: 'CalcioEz',
+    kind: 'Unboxing e short con codice sconto',
+    videos: [
+      {
+        title: 'Unboxing: maglie da calcio a basso prezzo',
+        platform: 'youtube',
+        url: 'https://youtu.be/s1KPG680RnM',
+        thumbnail: 'images/video/calcioez1.webp',
+        format: 'horizontal',
+      },
+      {
+        title: 'Short con codice sconto',
+        platform: 'youtube',
+        url: 'https://youtube.com/shorts/mRJKHicjwdY',
+        thumbnail: 'images/video/calcioez2.webp',
+        format: 'vertical',
+      },
+      {
+        title: 'Short “Tipi di tifosi in Italia”',
+        platform: 'youtube',
+        url: 'https://youtube.com/shorts/Xpy6-No-xHM',
+        thumbnail: 'images/video/calcioez3.webp',
+        format: 'vertical',
+      },
+    ],
+  },
+];
+
+/** Contenuti più performanti (cartella Drive "Video performanti" e "Instagram Reels più performanti"). */
+const featuredContent: FeaturedItem[] = [
+  {
+    title: 'Doppi sensi',
+    platform: 'tiktok',
+    url: 'https://www.tiktok.com/@riccardo_buttitta/video/7303939957998095649',
+    thumbnail: 'images/video/tiktok.webp',
+    format: 'vertical',
+    stats: '1,2 Mln visualizzazioni · 164,9K like',
+  },
+  {
+    title: 'Anche voi la cantate così?',
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/DJw9CiZAWH9/',
+    thumbnail: 'images/video/ig1.webp',
+    format: 'vertical',
+    stats: '155K like · 1.411 commenti',
+  },
+  {
+    title: 'Anche voi le cantate così?',
+    platform: 'youtube',
+    url: 'https://youtu.be/ucygmzT0-Ig',
+    thumbnail: 'images/video/topshort.webp',
+    format: 'vertical',
+    meta: 'Lo Short più visto',
+  },
+  {
+    title: 'Reel “Sveglia”',
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/C1M2MXFiNST/',
+    thumbnail: 'images/video/ig3.webp',
+    format: 'vertical',
+    stats: '65K like',
+  },
+  {
+    title: 'Reel “Ho il tonno e le insalate”',
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/Copx1AZo9B5/',
+    thumbnail: 'images/video/ig4.webp',
+    format: 'vertical',
+    stats: '57K like',
+  },
+  {
+    title: 'Reel Instagram',
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/C8fGIC1CRMf/',
+    format: 'vertical',
+    meta: 'Tra i Reel più visti',
+  },
+  {
+    title: 'Tomb Raider: Definitive Edition PS5 (completato)',
+    platform: 'youtube',
+    url: 'https://www.youtube.com/playlist?list=PLCxsiL4H5xLgNVezpIeGmwZXBwgEuehY8',
+    thumbnail: 'images/video/topserie.webp',
+    format: 'horizontal',
+    meta: 'La serie più seguita',
+  },
+];
 
 export const creator: CreatorData = {
   name: 'FunnyGameRick',
@@ -154,14 +376,20 @@ export const creator: CreatorData = {
       height: 424,
     },
     // Foto reale per la sezione "Dietro il controller". Lasciare null finché non viene fornita.
-    aboutPhoto: null,
+    aboutPhoto: {
+      src: 'images/riccardo-setup-1000.webp',
+      srcSet: 'images/riccardo-setup-600.webp 600w, images/riccardo-setup-1000.webp 1000w',
+      alt: 'Riccardo Buttitta seduto alla sua postazione di gioco, con PC, monitor e collezione di videogiochi',
+      width: 1000,
+      height: 1250,
+    },
   },
 
   /** Fatti verificabili mostrati in hero e nella sezione "chi è". */
   highlights: [
-    { value: '2022', label: 'Primo video, su TikTok' },
+    { value: '164K+', label: 'Follower su YouTube, TikTok, Instagram e Facebook' },
+    { value: '3,2 Mln', label: 'Visualizzazioni negli ultimi 90 giorni' },
     { value: '1–4', label: 'Short pubblicati ogni giorno' },
-    { value: '100%', label: 'Completamento dei giochi, secondarie incluse' },
   ],
 
   about: {
@@ -190,8 +418,9 @@ export const creator: CreatorData = {
    * Metriche. `value: null` = dato non disponibile → la card non viene mostrata.
    * `approximate: true` mostra il valore come arrotondato (es. "75,2K").
    */
-  metricsUpdatedAt: '2026-10-19',
-  metricsSource: 'Dati pubblici delle piattaforme',
+  metricsUpdatedAt: '2026-10-18',
+  metricsSource:
+    'YouTube Studio, TikTok Studio, Instagram Insights e profilo Facebook. Visualizzazioni e interazioni: ultimi 90 giorni (21 lug – 18 ott 2026)',
   platforms: [
     {
       id: 'youtube',
@@ -199,23 +428,42 @@ export const creator: CreatorData = {
       handle: '@FunnyGameRick',
       url: 'https://www.youtube.com/@FunnyGameRick',
       metrics: [
-        { label: 'Iscritti', value: 75200, approximate: true, primary: true },
+        { label: 'Iscritti', value: FOLLOWERS.youtube, primary: true },
+        { label: 'Visualizzazioni in 90 giorni', value: VIEWS_90D.youtube },
         { label: 'Video pubblicati', value: 6600, approximate: true },
       ],
     },
     {
       id: 'tiktok',
       label: 'TikTok',
-      handle: '@riccardobuttitta91',
-      url: 'https://www.tiktok.com/@riccardobuttitta91',
-      metrics: [{ label: 'Follower', value: null, primary: true }],
+      handle: '@riccardo_buttitta',
+      url: 'https://www.tiktok.com/@riccardo_buttitta',
+      metrics: [
+        { label: 'Follower', value: FOLLOWERS.tiktok, primary: true },
+        { label: 'Visualizzazioni post in 90 giorni', value: VIEWS_90D.tiktok, approximate: true },
+        { label: 'Mi piace totali', value: 1000000, approximate: true },
+      ],
     },
     {
       id: 'instagram',
       label: 'Instagram',
       handle: '@funnygamerick',
       url: 'https://www.instagram.com/funnygamerick',
-      metrics: [{ label: 'Follower', value: null, primary: true }],
+      metrics: [
+        { label: 'Follower', value: FOLLOWERS.instagram, primary: true },
+        { label: 'Visualizzazioni in 90 giorni', value: VIEWS_90D.instagram },
+        { label: 'Interazioni in 90 giorni', value: 91621 },
+      ],
+    },
+    {
+      id: 'facebook',
+      label: 'Facebook',
+      handle: 'Riccardo Buttitta - Funnygamerick',
+      url: 'https://www.facebook.com/riccardo.buttitta.14',
+      metrics: [
+        { label: 'Follower', value: FOLLOWERS.facebook, primary: true },
+        { label: 'Post pubblicati', value: 10722 },
+      ],
     },
     {
       id: 'twitch',
@@ -225,27 +473,25 @@ export const creator: CreatorData = {
       metrics: [{ label: 'Follower', value: null, primary: true }],
     },
     {
-      id: 'facebook',
-      label: 'Facebook',
-      handle: 'Riccardo Buttitta',
-      url: 'https://www.facebook.com/riccardo.buttitta.14',
-      metrics: [{ label: 'Follower', value: null, primary: true }],
-    },
-    {
       id: 'telegram',
       label: 'Telegram',
       handle: 't.me/FunnyGameRick',
       url: 'https://t.me/FunnyGameRick',
       metrics: [{ label: 'Iscritti', value: null, primary: true }],
-      showInStats: false,
     },
   ],
 
-  /** Metriche aggregate: compilare quando disponibili, altrimenti restano nascoste. */
+  /** Totali calcolati dai numeri qui sopra. */
   aggregateMetrics: [
-    { label: 'Visualizzazioni medie per video', value: null },
-    { label: 'Reach mensile', value: null },
-    { label: 'Engagement rate', value: null, unit: '%' },
+    {
+      label: 'Follower totali su YouTube, TikTok, Instagram e Facebook',
+      value: FOLLOWERS.youtube + FOLLOWERS.tiktok + FOLLOWERS.instagram + FOLLOWERS.facebook,
+    },
+    {
+      label: 'Visualizzazioni in 90 giorni su YouTube, Instagram e TikTok',
+      value: VIEWS_90D.youtube + VIEWS_90D.instagram + VIEWS_90D.tiktok,
+      approximate: true,
+    },
   ],
 
   contentPillars,
@@ -266,9 +512,9 @@ export const creator: CreatorData = {
       logo: null,
     },
     {
-      name: 'Deep Silver Collective',
+      name: 'Deep Silver Creator Collective',
       kind: 'creator-program',
-      description: 'Partecipazione alle iniziative creator di Deep Silver, tra cui quelle legate a Kingdom Come: Deliverance II.',
+      description: 'Partecipazione al collettivo creator di Deep Silver, con il giveaway di Kingdom Come: Deliverance II.',
       logo: null,
       highlight: 'Kingdom Come: Deliverance II',
     },
@@ -281,6 +527,7 @@ export const creator: CreatorData = {
   ],
   // Riquadro "programmi di affiliazione" nascosto su richiesta. Per mostrarlo: { note: '...', names: ['Amazon', ...] }
   affiliatePrograms: null,
+  sponsoredContent,
 
   audience,
   communityNote:
@@ -292,17 +539,10 @@ export const creator: CreatorData = {
   eventsNote: 'Disponibile per eventi e trasferte, con condizioni da concordare.',
 
   /**
-   * Contenuti in evidenza. Array vuoto = sezione "Press play" nascosta.
-   * Il primo elemento diventa la card grande. Esempio di voce (sostituire con link reali):
-   * {
-   *   title: 'Titolo del video',
-   *   platform: 'youtube',             // 'youtube' | 'tiktok' | 'instagram' | 'twitch'
-   *   url: 'https://www.youtube.com/watch?v=XXXXXXXXXXX',
-   *   thumbnail: 'images/video-1.webp', // opzionale: per YouTube viene ricavata dal link
-   *   meta: 'Walkthrough · Episodio 1', // opzionale
-   * }
+   * Contenuti in evidenza (sezione "Press play"). Array vuoto = sezione nascosta.
+   * format 'vertical' = short/reel/tiktok, 'horizontal' = video o serie.
    */
-  featuredContent: [],
+  featuredContent,
 
   /** Credito in fondo alla pagina. */
   credit: { label: 'Influencee', url: 'https://influencee.it' },
