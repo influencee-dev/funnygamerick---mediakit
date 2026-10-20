@@ -22,13 +22,12 @@ const initials = (name: string) =>
 
 export function Partnerships({ creator }: { creator: CreatorData }) {
   const { partnerships, affiliatePrograms, sponsoredContent } = creator;
-  const kinds = [...new Set(partnerships.map((p) => p.kind))];
 
   return (
     <section id="partnership" aria-labelledby="partnership-title" className="section overflow-hidden">
       <div aria-hidden="true" className="absolute inset-x-0 top-0 hairline" />
       <div className="container-x">
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <div>
           <SectionHeader
             id="partnership-title"
             index="05"
@@ -39,23 +38,6 @@ export function Partnerships({ creator }: { creator: CreatorData }) {
               </>
             }
           />
-          <Reveal delay={0.1} className="max-w-sm">
-            <p className="text-[15px] leading-relaxed text-muted">
-              Programmi e piattaforme dell’industria videoludica con cui Riccardo ha lavorato. Per ognuno è indicata la
-              natura del rapporto.
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Legenda">
-              {kinds.map((k) => {
-                const K = KIND[k];
-                return (
-                  <li key={k} className="chip">
-                    <K.icon className="h-3.5 w-3.5 text-cyan" aria-hidden="true" />
-                    {K.label}
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
         </div>
 
         <ul className="mt-14 grid gap-5 md:grid-cols-3">

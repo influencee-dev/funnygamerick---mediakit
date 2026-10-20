@@ -109,9 +109,9 @@ export function HorizontalCard({ item, kicker, wide = false }: { item: FeaturedI
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`card card-hover group flex h-full flex-col overflow-hidden ${wide ? 'md:flex-row' : ''}`}
+      className={`card card-hover group flex h-full flex-col overflow-hidden ${wide ? 'lg:flex-row' : ''}`}
     >
-      <div className={`relative aspect-video shrink-0 overflow-hidden bg-deep ${wide ? 'md:w-3/5' : ''}`}>
+      <div className={`relative aspect-video shrink-0 overflow-hidden bg-deep ${wide ? 'lg:w-3/5' : ''}`}>
         {thumb && item.format === 'vertical' ? (
           <>
             {/* Miniatura verticale: sfondo sfocato + immagine intera, senza ritagli strani. */}
@@ -130,7 +130,7 @@ export function HorizontalCard({ item, kicker, wide = false }: { item: FeaturedI
           <Play className="h-5 w-5 translate-x-0.5" fill="currentColor" />
         </span>
       </div>
-      <div className={`flex flex-1 flex-col p-6 ${wide ? 'md:justify-center md:p-10' : ''}`}>
+      <div className={`flex min-w-0 flex-1 flex-col p-6 ${wide ? 'lg:justify-center lg:p-10' : ''}`}>
         <span className="flex items-center gap-2 text-sm text-muted">
           <PlatformIcon id={item.platform} colored className="h-4 w-4" />
           {kicker ?? item.meta ?? PLATFORM_LABEL[item.platform]}

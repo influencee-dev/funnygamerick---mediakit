@@ -64,7 +64,7 @@ export function ContentUniverse({ creator }: { creator: CreatorData }) {
 /** Tre schermi verticali con le anteprime dei Reel: riempie la card alta dello short form. */
 function ShortFeedArt({ previews = [] }: { previews?: string[] }) {
   return (
-    <div aria-hidden="true" className="relative mt-10 hidden h-60 items-center justify-center md:flex">
+    <div aria-hidden="true" className="relative mt-10 hidden h-60 items-center justify-center lg:flex">
       {[-14, 0, 14].map((rot, i) => {
         const src = previews[i];
         const center = i === 1;

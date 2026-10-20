@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { CreatorData } from '../data/types';
 import { formatNumber, hasValue, primaryMetric } from '../lib/format';
 import { PlatformIcon } from './ui/PlatformIcon';
@@ -12,7 +12,16 @@ export function Hero({ creator }: { creator: CreatorData }) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const yVisual = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
+  // Parallax only on desktop: on phones the avatar sits above the text and would slide over it.
+  const [desktop, setDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const update = () => setDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+  const yVisual = useTransform(scrollYProgress, [0, 1], [0, reduce || !desktop ? 0 : 90]);
   const yWaves = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 160]);
 
   const yt = creator.platforms.find((p) => p.id === 'youtube');
