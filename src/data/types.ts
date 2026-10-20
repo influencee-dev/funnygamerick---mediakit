@@ -36,6 +36,8 @@ export interface ContentPillar {
   tags: string[];
   icon: 'gamepad' | 'zap' | 'laugh' | 'sparkles';
   size: 'large' | 'tall' | 'regular';
+  /** Miniature verticali mostrate come anteprima nella card (max 3). */
+  previews?: string[];
 }
 
 export type PartnershipKind = 'creator-program' | 'game-access' | 'commercial' | 'affiliate';

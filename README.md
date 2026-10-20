@@ -61,7 +61,7 @@ Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (s
 - Contenuti sponsorizzati: AC Black Flag Resynced, Forza Horizon 6, Darwin's Paradox!, giveaway Kingdom Come: Deliverance II, CalcioEz.
 - Contenuti più visti: TikTok "Doppi sensi" (1,2 Mln views), Reel e Short più visti, serie Tomb Raider.
   Titoli, like e visualizzazioni dei singoli video sono letti dalle pagine pubbliche; le miniature sono salvate in `public/images/video/`.
-- Foto reale (`public/images/riccardo-setup-*.webp`) e logo ad alta risoluzione (avatar).
+- Foto reale (`public/images/riccardo-*.webp`, foto davanti al poster di Spider-Man, leggermente migliorata) e logo ad alta risoluzione (avatar).
 - Email di contatto: riccardobuttitta91@gmail.com.
 
 ## Da aggiornare periodicamente

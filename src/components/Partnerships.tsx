@@ -109,15 +109,27 @@ export function Partnerships({ creator }: { creator: CreatorData }) {
                 </p>
               </div>
             </Reveal>
-            <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {/* flex + justify-center: l'ultima riga incompleta resta centrata rispetto alla pagina. */}
+            <ul className="mt-8 flex flex-wrap justify-center gap-5">
               {sponsoredContent.map((c, i) => {
                 const [main, ...more] = c.videos;
                 if (!main) return null;
                 return (
-                  <Reveal as="li" key={c.brand} delay={(i % 3) * 0.08} className="flex flex-col gap-3">
-                    <HorizontalCard item={{ ...main, title: c.brand }} kicker={c.kind} />
-                    {more.length > 0 && (
-                      <ul className="flex flex-wrap gap-2">
+                  <Reveal
+                    as="li"
+                    key={c.brand}
+                    delay={(i % 3) * 0.08}
+                    className="flex w-full flex-col gap-3 md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+                  >
+                    {/* La card riempie l'altezza della riga; sotto c'è sempre la stessa fascia per i link extra,
+                        così tutte le card di una riga hanno la stessa altezza. */}
+                    <div className="flex-1">
+                      <HorizontalCard item={{ ...main, title: c.brand }} kicker={c.kind} />
+                    </div>
+                    {more.length === 0 ? (
+                      <div aria-hidden="true" className="hidden h-8 md:block" />
+                    ) : (
+                      <ul className="flex min-h-8 flex-wrap gap-2">
                         {more.map((v) => (
                           <li key={v.url}>
                             <a

@@ -33,14 +33,14 @@ export function ContentUniverse({ creator }: { creator: CreatorData }) {
                 onPointerMove={onSpotlightMove}
                 className="card card-hover spotlight group relative flex h-full flex-col overflow-hidden p-7 sm:p-8"
               >
-                <PillarArt variant={i} />
+                {p.size !== 'tall' && <PillarArt variant={i} />}
                 <div className="flex items-start justify-between">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-deep/80 text-cyan transition duration-500 group-hover:border-cyan/60">
                     <Icon name={p.icon} className="h-6 w-6" />
                   </span>
                   <span className="text-[13px] font-semibold text-muted tabular-nums">0{i + 1}</span>
                 </div>
-                {p.size === 'tall' && <ShortFeedArt />}
+                {p.size === 'tall' && <ShortFeedArt previews={p.previews} />}
                 <div className="relative mt-auto pt-16">
                   <h3 className={`display text-ink ${p.size === 'large' ? 'text-4xl sm:text-5xl' : 'text-3xl'}`}>{p.title}</h3>
                   <p className="mt-4 max-w-md leading-relaxed text-muted">{p.description}</p>
@@ -61,29 +61,30 @@ export function ContentUniverse({ creator }: { creator: CreatorData }) {
   );
 }
 
-/** Tre schermi verticali stilizzati: riempie la card alta dello short form. */
-function ShortFeedArt() {
+/** Tre schermi verticali con le anteprime dei Reel: riempie la card alta dello short form. */
+function ShortFeedArt({ previews = [] }: { previews?: string[] }) {
   return (
-    <div aria-hidden="true" className="relative mt-10 hidden h-56 items-center justify-center md:flex">
-      {[-14, 0, 14].map((rot, i) => (
-        <div
-          key={rot}
-          className={`absolute flex h-48 w-[6.5rem] items-end rounded-2xl border p-2.5 transition duration-700 ${
-            i === 1
-              ? 'z-10 border-cyan/60 bg-gradient-to-b from-gaming/50 to-deep group-hover:-translate-y-2'
-              : 'border-line bg-deep/80'
-          }`}
-          style={{ transform: `rotate(${rot}deg) translateX(${rot * 5}px)` }}
-        >
-          <div className="w-full space-y-1.5">
-            <div className="h-1 w-3/4 rounded-full bg-ink/30" />
-            <div className="h-1 w-1/2 rounded-full bg-ink/20" />
-            <div className="mt-2 h-0.5 w-full overflow-hidden rounded-full bg-line">
-              <div className={`h-full bg-cyan ${i === 1 ? 'w-2/3' : 'w-1/4'}`} />
+    <div aria-hidden="true" className="relative mt-10 hidden h-60 items-center justify-center md:flex">
+      {[-14, 0, 14].map((rot, i) => {
+        const src = previews[i];
+        const center = i === 1;
+        return (
+          <div
+            key={rot}
+            className={`absolute h-52 w-[7.25rem] overflow-hidden rounded-2xl border-2 bg-deep transition duration-700 ${
+              center ? 'z-10 border-cyan/70 group-hover:-translate-y-2' : 'border-line'
+            }`}
+            style={{ transform: `rotate(${rot}deg) translateX(${rot * 5.5}px)` }}
+          >
+            {src && <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />}
+            {/* Le anteprime laterali restano un po' in ombra per dare profondità. */}
+            {!center && <div className="absolute inset-0 bg-night/45" />}
+            <div className="absolute inset-x-2.5 bottom-2.5 h-0.5 overflow-hidden rounded-full bg-ink/25">
+              <div className={`h-full bg-cyan ${center ? 'w-2/3' : 'w-1/4'}`} />
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -47,6 +47,8 @@ const contentPillars: ContentPillar[] = [
     tags: ['TikTok', 'Shorts', 'Reels'],
     icon: 'zap',
     size: 'tall',
+    // Anteprime nei tre schermi della card (Reel/short reali).
+    previews: ['images/video/ig3.webp', 'images/video/ig1.webp', 'images/video/ig4.webp'],
   },
   {
     id: 'meme',
@@ -377,9 +379,9 @@ export const creator: CreatorData = {
     },
     // Foto reale per la sezione "Dietro il controller". Lasciare null finché non viene fornita.
     aboutPhoto: {
-      src: 'images/riccardo-setup-1000.webp',
-      srcSet: 'images/riccardo-setup-600.webp 600w, images/riccardo-setup-1000.webp 1000w',
-      alt: 'Riccardo Buttitta seduto alla sua postazione di gioco, con PC, monitor e collezione di videogiochi',
+      src: 'images/riccardo-1000.webp',
+      srcSet: 'images/riccardo-600.webp 600w, images/riccardo-1000.webp 1000w',
+      alt: 'Riccardo Buttitta a braccia conserte davanti a un poster di Spider-Man',
       width: 1000,
       height: 1250,
     },
