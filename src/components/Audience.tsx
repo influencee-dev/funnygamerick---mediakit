@@ -103,7 +103,7 @@ function AudienceData({ creator }: { creator: CreatorData }) {
       {current && (
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-wrap items-end justify-between gap-4">
-            <div role="tablist" aria-label="Piattaforma" className="flex flex-wrap gap-2">
+            <div role="tablist" aria-label="Piattaforma" className="grid w-full grid-cols-3 gap-1.5 sm:flex sm:gap-2 sm:w-auto sm:flex-wrap">
               {platforms.map((p, i) => {
                 const selected = p.id === current.id;
                 return (
@@ -117,12 +117,12 @@ function AudienceData({ creator }: { creator: CreatorData }) {
                     tabIndex={selected ? 0 : -1}
                     onClick={() => setActive(p.id)}
                     onKeyDown={(e) => onKey(e, i)}
-                    className={`flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition-colors ${
+                    className={`flex min-h-11 min-w-0 items-center justify-center gap-1 rounded-full border px-1.5 text-[13px] font-semibold transition-colors sm:gap-2 sm:px-4 sm:text-sm ${
                       selected ? 'border-cyan bg-cyan text-night' : 'border-line bg-deep text-ink hover:border-cyan/60'
                     }`}
                   >
-                    <PlatformIcon id={p.id} className="h-4 w-4" />
-                    {p.label}
+                    <PlatformIcon id={p.id} className="h-3.5 w-3.5 shrink-0 max-[359px]:hidden sm:h-4 sm:w-4" />
+                    <span className="truncate">{p.label}</span>
                   </button>
                 );
               })}
