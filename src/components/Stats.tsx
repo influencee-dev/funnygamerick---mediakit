@@ -21,7 +21,6 @@ export function Stats({ creator }: { creator: CreatorData }) {
   const rest = used % 3;
   const presenceSpan = rest === 0 ? 'md:col-span-2 lg:col-span-3' : rest === 1 ? 'md:col-span-2 lg:col-span-2' : 'md:col-span-2 lg:col-span-1';
   const listFullWidth = rest === 0;
-  const anyApprox = withData.some((p) => p.metrics.some((m) => hasValue(m) && m.approximate));
 
   return (
     <section id="numeri" aria-labelledby="numeri-title" className="section">
@@ -83,11 +82,6 @@ export function Stats({ creator }: { creator: CreatorData }) {
             <span className="h-1.5 w-1.5 rounded-full bg-cyan/70" aria-hidden="true" />
             Dati aggiornati al <time dateTime={creator.metricsUpdatedAt}>{formatDate(creator.metricsUpdatedAt)}</time>
             <span aria-hidden="true">·</span> {creator.metricsSource}
-            {anyApprox && (
-              <>
-                <span aria-hidden="true">·</span> I valori con ≈ sono arrotondati come mostrati dalla piattaforma.
-              </>
-            )}
           </p>
         </Reveal>
       </div>
