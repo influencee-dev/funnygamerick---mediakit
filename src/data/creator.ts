@@ -505,27 +505,27 @@ export const creator: CreatorData = {
    *  - 'game-access'      → accesso a giochi/codici tramite piattaforma
    *  - 'commercial'       → collaborazione commerciale confermata
    *  - 'affiliate'        → programma di affiliazione
-   * `logo` resta null finché non ci sono loghi ufficiali utilizzabili.
+   * `logo`: marchio bianco su trasparente (PNG quadrato), mostrato dentro l'esagono. null = iniziali.
    */
   partnerships: [
     {
       name: 'Ubisoft Creator Program',
       kind: 'creator-program',
       description: 'Partecipazione al programma creator di Ubisoft, con accesso a titoli e contenuti dell’editore.',
-      logo: null,
+      logo: 'images/logos/ubisoft.png',
     },
     {
       name: 'Deep Silver Creator Collective',
       kind: 'creator-program',
       description: 'Partecipazione al collettivo creator di Deep Silver, con il giveaway di Kingdom Come: Deliverance II.',
-      logo: null,
+      logo: 'images/logos/deepsilver.png',
       highlight: 'Kingdom Come: Deliverance II',
     },
     {
       name: 'Keymailer',
       kind: 'game-access',
       description: 'Utilizzo della piattaforma per ricevere codici e opportunità legate all’uscita di nuovi videogiochi.',
-      logo: null,
+      logo: 'images/logos/keymailer.png',
     },
   ],
   // Riquadro "programmi di affiliazione" nascosto su richiesta. Per mostrarlo: { note: '...', names: ['Amazon', ...] }

@@ -68,16 +68,16 @@ export function Partnerships({ creator }: { creator: CreatorData }) {
                   className="card card-hover spotlight group flex h-full flex-col p-7 sm:p-8"
                 >
                   <div className="flex h-24 items-center">
-                    {p.logo ? (
-                      <img src={p.logo} alt={`Logo ${p.name}`} loading="lazy" className="max-h-14 w-auto max-w-[70%] object-contain opacity-90" />
-                    ) : (
-                      <div aria-hidden="true" className="relative flex h-20 w-20 items-center justify-center">
-                        <svg viewBox="0 0 80 80" className="absolute inset-0 h-full w-full text-line transition duration-700 group-hover:rotate-45 group-hover:text-cyan/60">
-                          <polygon points="40,2 74,21 74,59 40,78 6,59 6,21" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                        </svg>
-                        <span className="font-display text-2xl font-bold tracking-wider text-cyan">{initials(p.name)}</span>
-                      </div>
-                    )}
+                    <div className="relative flex h-20 w-20 items-center justify-center">
+                      <svg aria-hidden="true" viewBox="0 0 80 80" className="absolute inset-0 h-full w-full text-line transition duration-700 group-hover:rotate-45 group-hover:text-cyan/60">
+                        <polygon points="40,2 74,21 74,59 40,78 6,59 6,21" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                      </svg>
+                      {p.logo ? (
+                        <img src={p.logo} alt={`Logo ${p.name}`} width={40} height={40} loading="lazy" className="relative h-10 w-10 object-contain" />
+                      ) : (
+                        <span aria-hidden="true" className="font-display text-2xl font-bold tracking-wider text-cyan">{initials(p.name)}</span>
+                      )}
+                    </div>
                   </div>
                   <span className="mt-6 inline-flex w-fit items-center gap-1.5 rounded-full border border-cyan/30 bg-cyan/5 px-3 py-1 text-xs font-semibold tracking-[0.08em] text-cyan uppercase">
                     <K.icon className="h-3.5 w-3.5" aria-hidden="true" />
@@ -104,15 +104,12 @@ export function Partnerships({ creator }: { creator: CreatorData }) {
                 <h3 className="font-display text-3xl font-bold tracking-wide text-ink uppercase sm:text-4xl">
                   Contenuti <span className="text-cyan">sponsorizzati</span>
                 </h3>
-                <p className="max-w-md text-[15px] leading-relaxed text-muted">
-                  Collaborazioni commerciali già realizzate, con i contenuti pubblicati sul canale.
-                </p>
               </div>
             </Reveal>
             {/* flex + justify-center: l'ultima riga incompleta resta centrata rispetto alla pagina. */}
             <ul className="mt-8 flex flex-wrap justify-center gap-5">
               {sponsoredContent.map((c, i) => {
-                const [main, ...more] = c.videos;
+                const [main] = c.videos;
                 if (!main) return null;
                 return (
                   <Reveal
@@ -121,30 +118,10 @@ export function Partnerships({ creator }: { creator: CreatorData }) {
                     delay={(i % 3) * 0.08}
                     className="flex w-full flex-col gap-3 md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
                   >
-                    {/* La card riempie l'altezza della riga; sotto c'è sempre la stessa fascia per i link extra,
-                        così tutte le card di una riga hanno la stessa altezza. */}
+                    {/* La card riempie l'altezza della riga: tutte le card di una riga hanno la stessa altezza. */}
                     <div className="flex-1">
                       <HorizontalCard item={{ ...main, title: c.brand }} kicker={c.kind} />
                     </div>
-                    {more.length === 0 ? (
-                      <div aria-hidden="true" className="hidden h-8 md:block" />
-                    ) : (
-                      <ul className="flex min-h-8 flex-wrap gap-2">
-                        {more.map((v) => (
-                          <li key={v.url}>
-                            <a
-                              href={v.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="chip transition-colors hover:border-cyan/60 hover:text-ink"
-                            >
-                              {v.title}
-                              <span className="sr-only">(si apre in una nuova scheda)</span>
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                   </Reveal>
                 );
               })}
