@@ -69,7 +69,7 @@ Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (s
 - [ ] Numeri e audience (ripetere gli screenshot ogni 1–3 mesi e aggiornare `creator.ts` + `metricsUpdatedAt`)
 - [ ] Follower Twitch e iscritti Telegram (oggi solo link)
 - [ ] Loghi partner ufficiali, se utilizzabili
-- [ ] Statistiche del 4° Reel (C8fGIC1CRMf), oggi senza miniatura
+- [ ] Like del 4° Reel (C8fGIC1CRMf): la copertina è un fotogramma fornito, i numeri non sono disponibili
 
 ## Pubblicazione
 

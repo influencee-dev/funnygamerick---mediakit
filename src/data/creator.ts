@@ -338,6 +338,7 @@ const featuredContent: FeaturedItem[] = [
     title: 'Reel Instagram',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/C8fGIC1CRMf/',
+    thumbnail: 'images/video/ig2.webp',
     format: 'vertical',
     meta: 'Tra i Reel più visti',
   },
