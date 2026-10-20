@@ -59,7 +59,7 @@ Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (s
 - Audience (età, genere, paesi; città per Instagram) di YouTube, TikTok e Instagram.
 - Partnership: Ubisoft Creator Program, Deep Silver Creator Collective, Keymailer, con il marchio di ciascuno in bianco (`public/images/logos/`).
 - Contenuti sponsorizzati: AC Black Flag Resynced, Forza Horizon 6, Darwin's Paradox!, giveaway Kingdom Come: Deliverance II, CalcioEz.
-- Contenuti più visti: TikTok "Doppi sensi" (1,2 Mln views), Reel e Short più visti, serie Tomb Raider.
+- Contenuti più visti: TikTok "Doppi sensi" (1,2 Mln views), Reel più visti (179K, 155K, 65K, 57K like) e Short più visto, serie Tomb Raider.
   Titoli, like e visualizzazioni dei singoli video sono letti dalle pagine pubbliche; le miniature sono salvate in `public/images/video/`.
 - Foto reale (`public/images/riccardo-*.webp`, foto davanti al poster di Spider-Man, leggermente migliorata) e logo ad alta risoluzione (avatar).
 - Email di contatto: riccardobuttitta91@gmail.com.
@@ -68,7 +68,6 @@ Tutti i numeri vengono dalla cartella Drive "Media kit" condivisa da Riccardo (s
 
 - [ ] Numeri e audience (ripetere gli screenshot ogni 1–3 mesi e aggiornare `creator.ts` + `metricsUpdatedAt`)
 - [ ] Follower Twitch e iscritti Telegram (oggi solo link)
-- [ ] Like del 4° Reel (C8fGIC1CRMf): la copertina è un fotogramma fornito, i numeri non sono disponibili
 
 ## Pubblicazione
 

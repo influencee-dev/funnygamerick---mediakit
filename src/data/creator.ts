@@ -303,6 +303,14 @@ const featuredContent: FeaturedItem[] = [
     stats: '1,2 Mln visualizzazioni · 164,9K like',
   },
   {
+    title: 'Reel Instagram',
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/C8fGIC1CRMf/',
+    thumbnail: 'images/video/ig2.webp',
+    format: 'vertical',
+    stats: '179K like · 2.645 commenti',
+  },
+  {
     title: 'Anche voi la cantate così?',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/DJw9CiZAWH9/',
@@ -333,14 +341,6 @@ const featuredContent: FeaturedItem[] = [
     thumbnail: 'images/video/ig4.webp',
     format: 'vertical',
     stats: '57K like',
-  },
-  {
-    title: 'Reel Instagram',
-    platform: 'instagram',
-    url: 'https://www.instagram.com/reel/C8fGIC1CRMf/',
-    thumbnail: 'images/video/ig2.webp',
-    format: 'vertical',
-    meta: 'Tra i Reel più visti',
   },
   {
     title: 'Tomb Raider: Definitive Edition PS5 (completato)',
